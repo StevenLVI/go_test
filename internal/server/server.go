@@ -2,6 +2,7 @@
 package server
 
 import (
+	v1 "go_test/internal/server/v1"
 	"log"
 	"net/http"
 	"time"
@@ -16,6 +17,9 @@ type Server struct {
 
 func New(port string) (*Server, error) {
 	r := chi.NewRouter()
+
+	// API routes version 1.
+	r.Mount("/api/v1", v1.New())
 
 	serv := &http.Server{
 		Addr:         ":" + port,
